@@ -1,5 +1,5 @@
 class Paddle {
-  constructor(height, width, left, bottom, speed){
+  constructor(height, width, left, bottom, speed) {
     this.height = height;
     this.width = width;
     this.left = left;
@@ -7,11 +7,19 @@ class Paddle {
     this.speed = speed;
   }
 
-  moveLeft(){
+  moveLeft() {
     this.left = this.left - this.speed;
   }
 
-  moveRight(){
+  moveRight() {
     this.left = this.left + this.speed;
+  }
+}
+
+class Ball {
+  constructor(diameter,bottom, left) {
+    this.diameter = diameter;
+    this.left = left;
+    this.bottom = bottom;
   }
 }
