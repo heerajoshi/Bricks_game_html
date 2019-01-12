@@ -1,15 +1,11 @@
-main{
+main {
   width: 1000px;
   height: 700px;
   border: 2px solid black;
   margin: 0 auto;
   position: relative;
 }
-.paddle_1{
-  width: 100px;
-  height: 20px;
+.paddle_div {
   background-color: black;
   position: absolute;
-  bottom: 1px;
-  left: 450px;
 }
