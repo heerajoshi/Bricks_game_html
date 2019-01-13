@@ -23,14 +23,14 @@ class Ball {
     this.bottom = bottom;
     this.horizontalBoundary = horizontalBoundary;
     this.verticalBoundary = verticalBoundary;
-    this.x = 1;
-    this.y = 1;
+    this.x = 2;
+    this.y = 2;
   }
   moveVertical() {
-    this.bottom = this.bottom + this.y * 2;
+    this.bottom = this.bottom + this.y;
   }
   moveHorizontal() {
-    this.left = this.left - this.x * 2;
+    this.left = this.left - this.x;
   }
   changeHorizontalDirection() {
     this.x = -1 * this.x;
@@ -40,24 +40,28 @@ class Ball {
   }
   isHorizontalCollide() {
     return (
-      this.left == 0 ||
-      this.left >= this.horizontalBoundary - this.diameter 
+      this.left === 0 || this.left >= this.horizontalBoundary - this.diameter
     );
   }
   isTopCollide() {
-    return this.bottom >=  this.verticalBoundary - this.diameter ;
+    return this.bottom >= this.verticalBoundary - this.diameter;
   }
   isBottomCollide() {
     return this.bottom === 0;
   }
 }
 
-class Game{
-  constructor(Paddle,Ball){
-    this.Paddle=Paddle;
-    this.Ball = Ball;
+class Game {
+  constructor(paddle, ball) {
+    this.paddle = paddle;
+    this.ball = ball;
   }
-  collide(){
-    set
+  isCollide() {
+    let isLeft = this.ball.left <= this.paddle.left + this.paddle.width;
+    let isRight = this.paddle.left <= this.ball.left + this.ball.diameter;
+    let isTouching = this.ball.bottom == this.paddle.bottom + this.paddle.height + 1;
+    return (
+      isLeft && isRight && isTouching
+    );
   }
 }

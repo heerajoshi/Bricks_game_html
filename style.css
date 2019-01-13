@@ -1,18 +1,18 @@
-.paddle{
+.paddle {
   border: 1px solid black;
   background-color: black;
   position: absolute;
 }
 
-.board{
+.board {
   height: 570px;
   width: 800px;
   border: 1px solid black;
   position: relative;
   margin: 0 auto;
 }
-.ballDiv{
+.ballDiv {
   border: 1px solid black;
   background-color: tomato;
-  position:absolute;
+  position: absolute;
 }

@@ -1,6 +1,6 @@
 let paddle = new Paddle(20, 100, 350, 1, 15);
-let ball = new Ball(50, 20, 374, 800, 570);
-
+let ball = new Ball(50, 30, 374, 800, 570);
+let game = new Game(paddle, ball);
 const applyPixel = count => count + "px";
 
 const createPaddleDiv = function() {
@@ -9,6 +9,7 @@ const createPaddleDiv = function() {
   paddleDiv.id = "paddle_1";
   paddleDiv.className = "paddle";
   screen.appendChild(paddleDiv);
+  screen.focus();
   screen.onkeydown = move.bind(null, paddle);
 };
 
@@ -38,26 +39,23 @@ const drawBall = function(ball) {
 };
 
 const move = function(paddle) {
-  if (event.key == "ArrowRight") paddle.moveRight();
-  if (event.key == "ArrowLeft") paddle.moveLeft();
+  if (event.key == "ArrowRight" && paddle.left < 700) paddle.moveRight();
+  if (event.key == "ArrowLeft"&& paddle.left > 0) paddle.moveLeft();
   drawPaddle(paddle);
 };
 
-const moveBall = function(ball) {
+const moveBall = function(ball, game) {
   if (ball.isTopCollide()) ball.changeVerticalDirection();
-  if (ball.isHorizontalCollide()) {
-    console.log("jfskfjk");
-    ball.changeHorizontalDirection();
-  }
-  if (ball.isBottomCollide()) ball.changeVerticalDirection();
+  if (ball.isHorizontalCollide()) ball.changeHorizontalDirection();
+  if (game.isCollide()) ball.changeVerticalDirection();
+  if (ball.isBottomCollide()) location.reload();
   ball.moveVertical();
   ball.moveHorizontal();
   drawBall(ball);
 };
 
-const animatedBall = function(ball) {
-  console.log("hi");
-  setInterval(moveBall.bind(null, ball), 10);
+const animatedBall = function(ball, game) {
+  setInterval(moveBall.bind(null, ball, game), 10);
 };
 
 window.onload = function() {
@@ -65,5 +63,5 @@ window.onload = function() {
   drawPaddle(paddle);
   createBallDiv();
   drawBall(ball);
-  animatedBall(ball);
+  animatedBall(ball, game);
 };
