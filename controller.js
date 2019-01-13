@@ -1,12 +1,19 @@
-const createPaddleDiv = function(document) {
-  let div = document.createElement("div");
-  div.id = "paddle_1";
-  div.className = "paddle";
-  return div;
+let paddle = new Paddle(20, 100, 350, 1, 15);
+let ball = new Ball(50, 20, 375);
+
+const applyPixel = count => count + "px";
+
+const createPaddleDiv = function() {
+  let screen = document.getElementById("screen");
+  let paddleDiv = document.createElement("div");
+  paddleDiv.id = "paddle_1";
+  paddleDiv.className = "paddle";
+  screen.appendChild(paddleDiv);
+  screen.onkeydown = move.bind(null, paddle);
 };
 
-const drawPaddle = function(document, paddle) {
-  const paddleDiv = document.getElementById("paddle_1");
+const drawPaddle = function(paddle) {
+  let paddleDiv = document.getElementById("paddle_1");
   paddleDiv.style.height = applyPixel(paddle.height);
   paddleDiv.style.width = applyPixel(paddle.width);
   paddleDiv.style.left = applyPixel(paddle.left);
@@ -14,14 +21,14 @@ const drawPaddle = function(document, paddle) {
 };
 
 const createBallDiv = function() {
-  // let screen = getElementById('screen');
-  let div = document.createElement("div");
-  div.id = "ball";
-  div.className = "ballDiv";
-  return div;
+  let screen = document.getElementById("screen");
+  let ballDiv = document.createElement("div");
+  ballDiv.id = "ball";
+  ballDiv.className = "ballDiv";
+  screen.appendChild(ballDiv);
 };
 
-const drawBall = function(document, ball) {
+const drawBall = function(ball) {
   const ballDiv = document.getElementById("ball");
   ballDiv.style.height = applyPixel(ball.diameter);
   ballDiv.style.width = applyPixel(ball.diameter);
@@ -30,26 +37,27 @@ const drawBall = function(document, ball) {
   ballDiv.style.left = applyPixel(ball.left);
 };
 
-const applyPixel = count => count + "px";
-
-const move = function(document, paddle) {
-  console.log(event);
+const move = function(paddle) {
   if (event.key == "ArrowRight") paddle.moveRight();
   if (event.key == "ArrowLeft") paddle.moveLeft();
-  drawPaddle(document, paddle);
+  drawPaddle(paddle);
 };
 
-const initialise = function() {
-  const paddle = new Paddle(20, 100, 350, 1, 15);
-  const paddleDiv = createPaddleDiv(document);
-  const ball = new Ball(50, 20, 375);
-  const ballDiv = createBallDiv(document);
-  let screen = document.getElementById("screen");
-  screen.appendChild(paddleDiv);
-  screen.appendChild(ballDiv);
-  drawPaddle(document, paddle);
-  drawBall(document, ball);
-  screen.onkeydown = move.bind(null, document, paddle);
+const moveBall = function(ball) {
+  ball.moveUp();
+  ball.moveLeft();
+  drawBall(ball);
 };
 
-window.onload = initialise;
+const animatedBall = function(ball) {
+  console.log("hi");
+  setInterval(moveBall.bind(null, ball), 10);
+};
+
+window.onload = function() {
+  createPaddleDiv();
+  drawPaddle(paddle);
+  createBallDiv();
+  drawBall(ball);
+  animatedBall(ball);
+};
