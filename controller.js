@@ -1,5 +1,5 @@
 let paddle = new Paddle(20, 100, 350, 1, 15);
-let ball = new Ball(50, 20, 375);
+let ball = new Ball(50, 20, 374, 800, 570);
 
 const applyPixel = count => count + "px";
 
@@ -44,8 +44,14 @@ const move = function(paddle) {
 };
 
 const moveBall = function(ball) {
-  ball.moveUp();
-  ball.moveLeft();
+  if (ball.isTopCollide()) ball.changeVerticalDirection();
+  if (ball.isHorizontalCollide()) {
+    console.log("jfskfjk");
+    ball.changeHorizontalDirection();
+  }
+  if (ball.isBottomCollide()) ball.changeVerticalDirection();
+  ball.moveVertical();
+  ball.moveHorizontal();
   drawBall(ball);
 };
 

@@ -17,25 +17,47 @@ class Paddle {
 }
 
 class Ball {
-  constructor(diameter, bottom, left) {
+  constructor(diameter, bottom, left, horizontalBoundary, verticalBoundary) {
     this.diameter = diameter;
     this.left = left;
     this.bottom = bottom;
+    this.horizontalBoundary = horizontalBoundary;
+    this.verticalBoundary = verticalBoundary;
+    this.x = 1;
+    this.y = 1;
   }
-  moveUp() {
-    this.bottom = this.bottom + 2;
+  moveVertical() {
+    this.bottom = this.bottom + this.y * 2;
   }
-  moveLeft() {
-    this.left = this.left - 2;
+  moveHorizontal() {
+    this.left = this.left - this.x * 2;
+  }
+  changeHorizontalDirection() {
+    this.x = -1 * this.x;
+  }
+  changeVerticalDirection() {
+    this.y = -1 * this.y;
+  }
+  isHorizontalCollide() {
+    return (
+      this.left == 0 ||
+      this.left >= this.horizontalBoundary - this.diameter 
+    );
+  }
+  isTopCollide() {
+    return this.bottom >=  this.verticalBoundary - this.diameter ;
+  }
+  isBottomCollide() {
+    return this.bottom === 0;
   }
 }
 
-// class Game{
-//   constructor(Paddle,Ball){
-//     this.Paddle=Paddle;
-//     this.Ball = Ball;
-//   }
-//   MoveBall(){
-//     set
-//   }
-// }
+class Game{
+  constructor(Paddle,Ball){
+    this.Paddle=Paddle;
+    this.Ball = Ball;
+  }
+  collide(){
+    set
+  }
+}
